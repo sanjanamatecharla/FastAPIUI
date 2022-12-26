@@ -1,0 +1,6 @@
+fastapi~=0.88.0
+uvicorn 
+jinja2 
+yfinance 
+sqlalchemy
+mysql~=0.0.3
