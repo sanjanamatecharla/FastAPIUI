@@ -1,5 +1,5 @@
 import models
-from fastapi import FastAPI ,Request
+from fastapi import FastAPI ,Request, Header
 from fastapi.templating import Jinja2Templates
 from database import *
 #from database import SessionLocal,engine
@@ -18,22 +18,9 @@ def dashboard(request: Request):
         "request": request
     })
 
-@app.post("/stock")
-def create_stock():
-    """
-    Creates a stock and stores it in the data base
-    """
-
-    return {
-       "code": "success",
-       "message": "stock created"
-    }
 
 @app.get("/db")
 def database():
-
-    print("hello")
-
     mycursor = conn.cursor()
     mycursor.execute('''select * from roles ''')
     myresult = mycursor.fetchall()
@@ -44,3 +31,19 @@ def database():
         "code": "success",
         "data": myresult
      }
+#
+@app.get("/api/roles")
+def read_items(my_header1: str = Header(default=None), my_header2: str = Header(default=None)):
+    # my_header1 = request.headers.get("my_header1")
+    print(my_header1)
+    return {"Authorization values": my_header1, "head 2": my_header2}
+
+
+#
+# @app.put('/')
+# async def root():
+#     return {"message":"success"}
+#
+# @app.delete('/')
+# async def stem():
+#     return {"message": "success"}
