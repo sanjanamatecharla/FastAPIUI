@@ -39,9 +39,9 @@ def database():
 
 # GET ROLES
 @app.get("/api/roles")
-async def getroles(Authorization: str = Header(Default = None), X_DeviceId: str = Header(Default = None),
-               X_Page: str = Header(Default = None), X_Platform: str = Header(Default = None),X_Product:str = Header(Default = None),
-               X_tenant:str = Header(Default = None), isMultiSessionRequired: bool = Header(Default = None)):
+async def getroles(Authorization:  Union[str, None] = Header(default=None), X_DeviceId: Union[str, None] = Header(default=None),
+               X_Page: Union[str, None] = Header(default=None), X_Platform: Union[str, None] = Header(default=None),X_Product:Union[str, None] = Header(default=None),
+               X_tenant:Union[str, None] = Header(default=None), isMultiSessionRequired:Union[bool, None] = Header(default=None)):
 
     return {"Authorization values": Authorization,
             "X_DeviceId": X_DeviceId,
@@ -55,10 +55,10 @@ async def getroles(Authorization: str = Header(Default = None), X_DeviceId: str 
 #CREATE ROLES
 
 @app.post("/api/roles")
-async def createroles(Authorization: str = Header(Default = None), X_DeviceId: str = Header(Default = None),
-               X_Page: str = Header(Default = None), X_Platform: str = Header(Default = None),X_Product:str = Header(Default = None),
-               X_tenant:str = Header(Default = None), isMultiSessionRequired: bool = Header(Default = None),
-                displayname: str = Body(embed=True),rolecode : str = Body(embed=True), rolename: str = Body(embed=True)):
+async def createroles(Authorization:  Union[str, None] = Header(default=None), X_DeviceId: Union[str, None] = Header(default=None),
+               X_Page: Union[str, None] = Header(default=None), X_Platform: Union[str, None] = Header(default=None),X_Product:Union[str, None] = Header(default=None),
+               X_tenant:Union[str, None] = Header(default=None), isMultiSessionRequired:Union[bool, None] = Header(default=None),
+                displayname: Union[str, None]  = Body(embed=True),rolecode : Union[str, None]  = Body(embed=True), rolename: Union[str, None]  = Body(embed=True)):
 
 
     return {"Authorization values": Authorization,
@@ -73,9 +73,9 @@ async def createroles(Authorization: str = Header(Default = None), X_DeviceId: s
 
 #DELETE ROLES
 @app.delete('/api/roles')
-async def deleteroles(Authorization: str = Header(Default = None), X_DeviceId: str = Header(Default = None),
-               X_Page: str = Header(Default = None), X_Platform: str = Header(Default = None),X_Product:str = Header(Default = None),
-               X_tenant:str = Header(Default = None), isMultiSessionRequired: bool = Header(Default = None),role: bool = Body(embed=True)):
+async def deleteroles(Authorization:  Union[str, None] = Header(default=None), X_DeviceId: Union[str, None] = Header(default=None),
+               X_Page: Union[str, None] = Header(default=None), X_Platform: Union[str, None] = Header(default=None),X_Product:Union[str, None] = Header(default=None),
+               X_tenant:Union[str, None] = Header(default=None), isMultiSessionRequired:Union[bool, None] = Header(default=None),role: Union[bool, None] = Body(embed=True)):
 
     return {"Authorization values": Authorization,
             "X_DeviceId": X_DeviceId,
@@ -88,10 +88,10 @@ async def deleteroles(Authorization: str = Header(Default = None), X_DeviceId: s
 # UPDATE ROLES
 
 @app.put("/api/roles/{role_id}")
-async def updateRoles(Authorization: str = Header(Default = None), X_DeviceId: str = Header(Default = None),
-               X_Page: str = Header(Default = None), X_Platform: str = Header(Default = None),X_Product:str = Header(Default = None),
-               X_tenant:str = Header(Default = None), isMultiSessionRequired: bool = Header(Default = None),
-                displayname: str = Body(embed=True),active : bool = Body(embed=True), rolename: str = Body(embed=True)):
+async def updateRoles(Authorization:  Union[str, None] = Header(default=None), X_DeviceId: Union[str, None] = Header(default=None),
+               X_Page: Union[str, None] = Header(default=None), X_Platform: Union[str, None] = Header(default=None),X_Product:Union[str, None] = Header(default=None),
+               X_tenant:Union[str, None] = Header(default=None), isMultiSessionRequired:Union[bool, None] = Header(default=None),
+                displayname: Union[str, None] = Body(embed=True),active : Union[bool, None] = Body(embed=True), rolename: Union[str, None] = Body(embed=True)):
 
 
     return {"Authorization values": Authorization,
