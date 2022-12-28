@@ -3,52 +3,119 @@
 
     {% block content %}
 
-        <div class="ui input">
-          <input type="text" placeholder="P/E Ratio">
-        </div>
+    <style>
+      #customers td,
+      #customers th {
+        border: 1px solid #ddd;
+        padding: 8px;
+      }
 
-    <div class="ui input">
-      <input type="text" placeholder="Dividend Yield">
+      #customers tr:nth-child(even) {
+        background-color: #f2f2f2;
+      }
+
+      #customers tr:hover {
+        background-color: #ddd;
+      }
+
+      #customers th {
+        padding-top: 12px;
+        padding-bottom: 12px;
+        text-align: left;
+        background-color: #04aa6d;
+        color: white;
+      }
+    </style>
+    <div class="container">
+      <table id="customers" class="table">
+        <thead>
+          <tr>
+            <th>role ID</th>
+            <th>Role Name</th>
+            <th>Created Time</th>
+            <th>Role Code</th>
+            <th>Display Name</th>
+            <th>Active</th>
+          </tr>
+        </thead>
+        <tbody id="data"></tbody>
+      </table>
     </div>
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        fetch("https://api.devinfinitylearn.in/api/roles", {
+          method: "GET",
+          headers: {
+            accept: "application/json",
+            Authorization:
+              "Bearer eyJhbGciOiJIUzI1NiJ9.eyJ1aWQiOiJudWxsIiwiVGVuYW50SWQiOjEsIlJvbGVOYW1lIjoiU3R1ZGVudCxTdXBlciBBZG1pbiIsIkRCSWQiOiIxNzU4NSIsIkZpcnN0TmFtZSI6InRlc3QiLCJUZW5hbnRDb2RlIjoiaW5maW5pdHlsZWFybiIsIkxhc3ROYW1lIjoiYWNjIiwiZXhwIjoxNjcyMzEzMTI2LCJSb2xlSWQiOiIxLDUiLCJpYXQiOjE2NzIyMjY3MjZ9.8hLf1IaHnxzVFpBzhnGm2-sBAkKALYrxLYfImsLIkTo",
+          },
+        }).then((res) => {
+          res.json().then((data) => {
+            console.log(data);
+            if (data.response.length > 0) {
+              var temp = "";
+              data.response.forEach((itemData) => {
+                temp += "<tr>";
+                temp += "<td>" + itemData.roleId + "</td>";
+                temp += "<td>" + itemData.roleName + "</td>";
+                temp += "<td>" + itemData.createdTime + "</td>";
+                temp += "<td>" + itemData.roleCode + "</td>";
+                temp += "<td>" + itemData.displayName + "</td>";
+                temp += "<td>" + itemData.active + "</td></tr>";
+              });
+              document.getElementById("data").innerHTML = temp;
+            }
+          });
+        });
+      });
+    </script>
+<!--        <div class="ui input">-->
+<!--          <input type="text" placeholder="P/E Ratio">-->
+<!--        </div>-->
 
-    <div class="ui checkbox">
-      <input type="checkbox" name="example">
-      <label>Above 50 Day MA</label>
-    </div>
+<!--    <div class="ui input">-->
+<!--      <input type="text" placeholder="Dividend Yield">-->
+<!--    </div>-->
 
-    <div class="ui checkbox">
-      <input type="checkbox" name="example">
-      <label>Abovee 200 Day MA</label>
-    </div>
+<!--    <div class="ui checkbox">-->
+<!--      <input type="checkbox" name="example">-->
+<!--      <label>Above 50 Day MA</label>-->
+<!--    </div>-->
 
-    <button class="ui button primary">
-      Filter
-    </button>
+<!--    <div class="ui checkbox">-->
+<!--      <input type="checkbox" name="example">-->
+<!--      <label>Abovee 200 Day MA</label>-->
+<!--    </div>-->
 
-    <table class="ui celled table">
-      <thead>
-        <tr><th>Symbol</th>
-        <th>P/E</th>
-        <th>Divident Yield</th>
-      </tr></thead>
-      <tbody>
-        <tr>
-          <td data-label="Name">MSFT</td>
-          <td data-label="Age">10</td>
-          <td data-label="Job">2</td>
-        </tr>
-        <tr>
-          <td data-label="Name">AAPL</td>
-          <td data-label="Age">44</td>
-          <td data-label="Job">3</td>
-        </tr>
-        <tr>
-          <td data-label="Name">FB</td>
-          <td data-label="Age">20</td>
-          <td data-label="Job">0</td>
-        </tr>
-      </tbody>
-    </table>
+<!--    <button class="ui button primary">-->
+<!--      Filter-->
+<!--    </button>-->
+
+<!--    <table class="ui celled table">-->
+<!--      <thead>-->
+<!--        <tr><th>Symbol</th>-->
+<!--        <th>P/E</th>-->
+<!--        <th>Divident Yield</th>-->
+<!--      </tr></thead>-->
+<!--      <tbody>-->
+<!--        <tr>-->
+<!--          <td data-label="Name">MSFT</td>-->
+<!--          <td data-label="Age">10</td>-->
+<!--          <td data-label="Job">2</td>-->
+<!--        </tr>-->
+<!--        <tr>-->
+<!--          <td data-label="Name">AAPL</td>-->
+<!--          <td data-label="Age">44</td>-->
+<!--          <td data-label="Job">3</td>-->
+<!--        </tr>-->
+<!--        <tr>-->
+<!--          <td data-label="Name">FB</td>-->
+<!--          <td data-label="Age">20</td>-->
+<!--          <td data-label="Job">0</td>-->
+<!--        </tr>-->
+<!--      </tbody>-->
+<!--    </table>-->
 
 
     {% endblock %}

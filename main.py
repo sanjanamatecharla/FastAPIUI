@@ -42,14 +42,16 @@ def database():
 async def getroles(Authorization:  Union[str, None] = Header(default=None), X_DeviceId: Union[str, None] = Header(default=None),
                X_Page: Union[str, None] = Header(default=None), X_Platform: Union[str, None] = Header(default=None),X_Product:Union[str, None] = Header(default=None),
                X_tenant:Union[str, None] = Header(default=None), isMultiSessionRequired:Union[bool, None] = Header(default=None)):
+    mycursor = conn.cursor()
+    mycursor.execute('''select * from roles ''')
+    myresult = mycursor.fetchall()
+    print(myresult)
+    # Avf_cart_value = pd.DataFrame(myresult)
 
-    return {"Authorization values": Authorization,
-            "X_DeviceId": X_DeviceId,
-            "X_Page":X_Page,
-            "X_Platform":X_Platform,
-            "X_Product": X_Product,
-            "X_tenant":X_tenant ,
-            "isMultiSessionRequired":isMultiSessionRequired}
+    return {
+        "code": "success",
+        "data": myresult
+    }
 
 
 #CREATE ROLES
@@ -67,7 +69,11 @@ async def createroles(Authorization:  Union[str, None] = Header(default=None), X
             "X_Platform":X_Platform,
             "X_Product": X_Product,
             "X_tenant":X_tenant ,
-            "isMultiSessionRequired":isMultiSessionRequired, "displayname": displayname,"rolecode":rolecode,"rolename":rolename }
+            "isMultiSessionRequired":isMultiSessionRequired,
+            "displayname": displayname,
+            "rolecode": rolecode,
+            "rolename": rolename
+        }
 
 
 
@@ -83,7 +89,9 @@ async def deleteroles(Authorization:  Union[str, None] = Header(default=None), X
             "X_Platform":X_Platform,
             "X_Product": X_Product,
             "X_tenant":X_tenant ,
-            "isMultiSessionRequired":isMultiSessionRequired, "role":role}
+            "isMultiSessionRequired":isMultiSessionRequired,
+            "role":role
+            }
 
 # UPDATE ROLES
 
