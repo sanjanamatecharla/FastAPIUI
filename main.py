@@ -7,8 +7,8 @@ from pydantic import BaseModel
 from typing import Union
 #from database import SessionLocal,engine
 #from sqlalchemy.orm import Session,engine
-class ModelName(int, Enum):
-    role_id = "role_id"
+# class ModelName(int, Enum):
+#     role_id = "role_id"
 
 
 app = FastAPI()
@@ -90,7 +90,7 @@ async def deleteroles(Authorization: str = Header(Default = None), X_DeviceId: s
 @app.put("/api/roles/{role_id}")
 async def updateRoles(Authorization: str = Header(Default = None), X_DeviceId: str = Header(Default = None),
                X_Page: str = Header(Default = None), X_Platform: str = Header(Default = None),X_Product:str = Header(Default = None),
-               X_tenant:str = Header(Default = None), isMultiSessionRequired: bool = Header(Default = None),role_id : ModelName,
+               X_tenant:str = Header(Default = None), isMultiSessionRequired: bool = Header(Default = None),
                 displayname: str = Body(embed=True),active : bool = Body(embed=True), rolename: str = Body(embed=True)):
 
 
@@ -100,6 +100,6 @@ async def updateRoles(Authorization: str = Header(Default = None), X_DeviceId: s
             "X_Platform":X_Platform,
             "X_Product": X_Product,
             "X_tenant":X_tenant ,
-            "isMultiSessionRequired":isMultiSessionRequired, "displayname": displayname,"active":active,"rolename":rolename,
-            "role_id":role_id}
+            "isMultiSessionRequired":isMultiSessionRequired, "displayname": displayname,"active":active,"rolename":rolename
+            }
 
