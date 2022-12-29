@@ -135,9 +135,10 @@ async def updateRoles(Authorization: Union[str, None] = Header(default=None),
                       displayname: Union[str, None] = Body(embed=True), active: Union[int, None] = Body(embed=True),
                       rolename: Union[str, None] = Body(embed=True)):
     mycursor = conn.cursor()
+    print(role_id)
     if rolename:
-        mycursor.execute(f"UPDATE roles SET role_name='{rolename}' WHERE role_id = {role_id}")
-        myresult = mycursor.fetchall()
+        myresult = mycursor.execute(f"UPDATE roles SET role_name='{rolename}' WHERE role_id = {role_id}")
+        # myresult = mycursor.fetchall()
         print(myresult)
     else:
         mycursor.execute(f"UPDATE roles SET ACTIVE='{active}' WHERE role_id = {role_id}")
