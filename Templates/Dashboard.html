@@ -43,7 +43,7 @@
     </div>
     <script>
       document.addEventListener("DOMContentLoaded", () => {
-        fetch("https://api.devinfinitylearn.in/api/roles", {
+        fetch("http://localhost:8000/api/roles", {
           method: "GET",
           headers: {
             accept: "application/json",
@@ -57,12 +57,12 @@
               var temp = "";
               data.response.forEach((itemData) => {
                 temp += "<tr>";
-                temp += "<td>" + itemData.roleId + "</td>";
-                temp += "<td>" + itemData.roleName + "</td>";
-                temp += "<td>" + itemData.createdTime + "</td>";
-                temp += "<td>" + itemData.roleCode + "</td>";
-                temp += "<td>" + itemData.displayName + "</td>";
-                temp += "<td>" + itemData.active + "</td></tr>";
+                temp += "<td>" + itemData[0] + "</td>";
+                temp += "<td>" + itemData[1] + "</td>";
+                temp += "<td>" + itemData[2] + "</td>";
+                temp += "<td>" + itemData[3] + "</td>";
+                temp += "<td>" + itemData[4] + "</td>";
+                temp += "<td>" + itemData[5] + "</td></tr>";
               });
               document.getElementById("data").innerHTML = temp;
             }
