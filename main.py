@@ -1,5 +1,5 @@
 import models
-from fastapi import FastAPI, Request, Header, Form, Body, HTTPException
+from fastapi import FastAPI, Request, Header, Form, Body, HTTPException, Path
 from fastapi.templating import Jinja2Templates
 from database import *
 from enum import Enum
@@ -83,9 +83,11 @@ async def createroles(Authorization: Union[str, None] = Header(default=None),
         )
     else:
         print("false")
-        mycursor.execute(f"INSERT INTO roles (role_name, active, created_time, role_code, display_name) VALUES ('{rolename}',1,CURRENT_TIMESTAMP,'{rolecode}','{displayname}')")
+        query = f"INSERT INTO roles (role_name, active, role_code, display_name) VALUES ('{rolename}','1','{rolecode}','{displayname}')"
+        myresult = mycursor.execute(query)
         myresult = mycursor.fetchall()
         print(myresult)
+
     return {"Authorization values": Authorization,
             "X_DeviceId": X_DeviceId,
             "X_Page": X_Page,
@@ -129,9 +131,19 @@ async def updateRoles(Authorization: Union[str, None] = Header(default=None),
                       X_Platform: Union[str, None] = Header(default=None),
                       X_Product: Union[str, None] = Header(default=None),
                       X_tenant: Union[str, None] = Header(default=None),
-                      isMultiSessionRequired: Union[bool, None] = Header(default=None),
-                      displayname: Union[str, None] = Body(embed=True), active: Union[bool, None] = Body(embed=True),
+                      isMultiSessionRequired: Union[bool, None] = Header(default=None),role_id: int = Path(title = "role_id"),
+                      displayname: Union[str, None] = Body(embed=True), active: Union[int, None] = Body(embed=True),
                       rolename: Union[str, None] = Body(embed=True)):
+    mycursor = conn.cursor()
+    if rolename:
+        mycursor.execute(f"UPDATE roles SET role_name='{rolename}' WHERE role_id = {role_id}")
+        myresult = mycursor.fetchall()
+        print(myresult)
+    else:
+        mycursor.execute(f"UPDATE roles SET ACTIVE='{active}' WHERE role_id = {role_id}")
+        myresult = mycursor.fetchall()
+        print(myresult)
+
     return {"Authorization values": Authorization,
             "X_DeviceId": X_DeviceId,
             "X_Page": X_Page,
@@ -139,5 +151,6 @@ async def updateRoles(Authorization: Union[str, None] = Header(default=None),
             "X_Product": X_Product,
             "X_tenant": X_tenant,
             "isMultiSessionRequired": isMultiSessionRequired, "displayname": displayname, "active": active,
-            "rolename": rolename
+            "rolename": rolename,
+            "role_id": role_id
             }
