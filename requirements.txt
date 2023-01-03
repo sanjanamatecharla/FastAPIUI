@@ -1,6 +1,7 @@
 fastapi~=0.88.0
 uvicorn 
-jinja2 
-yfinance 
+jinja2
+pydantic
+mysqlclient
 sqlalchemy
 mysql~=0.0.3
